@@ -21,4 +21,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [Controllers\HomeController::class, 'index'])->name('home');
+Route::get('note/create', [Controllers\NoteController::class, 'create']);
+Route::post('note/store', [Controllers\NoteController::class, 'store'])
+    ->name('note.store');
 Route::get('/note/{note}', [Controllers\NoteController::class, 'show']);

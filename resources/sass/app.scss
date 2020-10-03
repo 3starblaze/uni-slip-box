@@ -1,13 +1,15 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 @import 'variables';
+@import 'note-create';
 
 * {
+    box-sizing: border-box;
     font-family: Nunito;
-    color: #222;
+    color: $primary-dark;
 }
 
 body {
-    background: #ddd;
+    background: $primary-light;
 }
 
 .logo-title {

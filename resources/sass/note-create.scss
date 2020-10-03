@@ -1,0 +1,14 @@
+.form-body {
+    display: grid;
+    grid-template-columns: minmax(400px, 50%) 50px;
+    column-gap: 10px;
+    row-gap: 5px;
+}
+
+label {
+    color: $secondary-dark;
+}
+
+textarea {
+    height: 200px;
+}
