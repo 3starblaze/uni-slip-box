@@ -9,10 +9,34 @@
 }
 
 body {
+    margin: 0;
     background: $primary-light;
+}
+
+.content {
+    margin: 1em;
 }
 
 .logo-title {
     letter-spacing: -4px;
     font-style: italic;
+}
+
+nav {
+    background: $secondary-light;
+    padding: 1em;
+    ul {
+        display: flex;
+        padding: 0;
+        margin: 0;
+        justify-content: space-between;
+        list-style: none;
+
+        li {
+            p {
+                display: inline-block;
+                margin: 0;
+            }
+        }
+    }
 }

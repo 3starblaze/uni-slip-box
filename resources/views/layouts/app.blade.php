@@ -21,6 +21,21 @@
 </head>
 <body>
     <div id="app">
+        <nav>
+            <ul>
+                <li class="left">
+                    <p>uni-slip-box</p>
+                </li>
+                <li class="right">
+                    @auth
+                    <p>{{ Auth::user()->name }}</p>
+                    @else
+                    <p>Login</p>
+                    <p>Register</p>
+                    @endauth
+                </li>
+            </ul>
+        </nav>
         <div class="content">
             @yield('content')
         </div>
