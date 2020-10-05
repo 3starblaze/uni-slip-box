@@ -24,7 +24,7 @@
         <nav>
             <ul>
                 <li class="left">
-                    <p>uni-slip-box</p>
+                    <p class="logo-title">uni-slip-box</p>
                 </li>
                 <li class="right">
                     @auth
