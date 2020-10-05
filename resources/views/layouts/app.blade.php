@@ -24,14 +24,14 @@
         <nav>
             <ul>
                 <li class="left">
-                    <p class="logo-title">uni-slip-box</p>
+                    <p class="logo-title"><a href="/">uni-slip-box</a></p>
                 </li>
                 <li class="right">
                     @auth
                     <p>{{ Auth::user()->name }}</p>
                     @else
-                    <p>Login</p>
-                    <p>Register</p>
+                    <p><a href="{{ route('login') }}">Login</a></p>
+                    <p><a href="{{ route('register') }}">Register</a></p>
                     @endauth
                 </li>
             </ul>
