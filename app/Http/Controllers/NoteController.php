@@ -35,11 +35,15 @@ class NoteController extends Controller
      */
     public function store(Request $request)
     {
-        $note = new Note();
-        $note->fill($request->all());
-        $note->user_id = \Auth::id();
-        $note->save();
-        return redirect()->route('note.show', compact('note'));
+        // Check if user is there, then provide front-end checks
+        if (\Auth::check()) {
+            $note = new Note();
+            $note->fill($request->all());
+            $note->user_id = \Auth::id();
+            $note->save();
+            return redirect()->route('note.show', compact('note'));
+        }
+        return redirect()->route('home');
     }
 
     /**
