@@ -24,7 +24,10 @@ class NoteController extends Controller
      */
     public function create()
     {
-        return view('note.create');
+        if (\Auth::check()) {
+            return view('note.create');
+        }
+        return redirect()->route('home');
     }
 
     /**
