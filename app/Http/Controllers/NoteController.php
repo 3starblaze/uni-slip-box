@@ -27,7 +27,9 @@ class NoteController extends Controller
         if (\Auth::check()) {
             return view('note.create');
         }
-        return redirect()->route('home');
+        return redirect()
+            ->route('home')
+            ->with('status', 'You must be logged in to perform this action!');
     }
 
     /**

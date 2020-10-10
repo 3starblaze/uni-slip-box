@@ -45,6 +45,11 @@
                 </li>
             </ul>
         </nav>
+        @if (session('status'))
+            <div style="color:red">
+                {{ session('status') }}
+            </div>
+        @endif
         <div class="content">
             @yield('content')
         </div>
