@@ -46,7 +46,7 @@
             </ul>
         </nav>
         @if (session('status'))
-            <div style="color:red">
+            <div class="flash">
                 {{ session('status') }}
             </div>
         @endif
