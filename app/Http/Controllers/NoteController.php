@@ -24,7 +24,12 @@ class NoteController extends Controller
      */
     public function create()
     {
-        return view('note.create');
+        if (\Auth::check()) {
+            return view('note.create');
+        }
+        return redirect()
+            ->route('home')
+            ->with('status', 'You must be logged in to perform this action!');
     }
 
     /**
@@ -35,7 +40,15 @@ class NoteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Check if user is there, then provide front-end checks
+        if (\Auth::check()) {
+            $note = new Note();
+            $note->fill($request->all());
+            $note->user_id = \Auth::id();
+            $note->save();
+            return redirect()->route('note.show', compact('note'));
+        }
+        return redirect()->route('home');
     }
 
     /**

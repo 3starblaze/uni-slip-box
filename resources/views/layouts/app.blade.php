@@ -29,6 +29,15 @@
                 <li class="right">
                     @auth
                     <p>{{ Auth::user()->name }}</p>
+                    <p>
+                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            Logout
+                        </a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            {{ csrf_field() }}
+                        </form>
+                    </p>
                     @else
                     <p><a href="{{ route('login') }}">Login</a></p>
                     <p><a href="{{ route('register') }}">Register</a></p>
@@ -36,6 +45,11 @@
                 </li>
             </ul>
         </nav>
+        @if (session('status'))
+            <div class="flash">
+                {{ session('status') }}
+            </div>
+        @endif
         <div class="content">
             @yield('content')
         </div>
