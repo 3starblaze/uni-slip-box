@@ -26,3 +26,5 @@ Route::post('note/store', [Controllers\NoteController::class, 'store'])
     ->name('note.store');
 Route::get('/note/{note}', [Controllers\NoteController::class, 'show'])
     ->name('note.show');
+Route::get('/note/{note}/edit', [Controllers\NoteController::class, 'edit'])
+    ->name('note.edit');
