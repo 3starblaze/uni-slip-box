@@ -1,5 +1,6 @@
 <h1>@yield('h1')</h1>
-<form method="post" action="{{ route('note.store') }}">
+<form method="post" action="@yield('action')">
+    @yield('form-header')
     @csrf
     <div class="form-body">
         <input type="text" name="title" value="@yield('title-input')"/>

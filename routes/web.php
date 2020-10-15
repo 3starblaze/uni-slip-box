@@ -20,7 +20,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('note/index', [Controllers\NoteController::class, 'index']);
+Route::get('note/index', [Controllers\NoteController::class, 'index'])
+    ->name('notes');
 Route::get('note/create', [Controllers\NoteController::class, 'create']);
 Route::post('note/store', [Controllers\NoteController::class, 'store'])
     ->name('note.store');
