@@ -20,11 +20,13 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('note/index', [Controllers\NoteController::class, 'index'])
-    ->name('notes');
+Route::get('notes', [Controllers\NoteController::class, 'index'])
+    ->name('note.index');
 Route::get('note/create', [Controllers\NoteController::class, 'create']);
-Route::post('note/store', [Controllers\NoteController::class, 'store'])
+Route::post('notes', [Controllers\NoteController::class, 'store'])
     ->name('note.store');
+Route::put('note/{note}', [Controllers\NoteController::class, 'update'])
+    ->name('note.update');
 Route::get('/note/{note}', [Controllers\NoteController::class, 'show'])
     ->name('note.show');
 Route::get('/note/{note}/edit', [Controllers\NoteController::class, 'edit'])

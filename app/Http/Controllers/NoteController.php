@@ -84,7 +84,9 @@ class NoteController extends Controller
      */
     public function update(Request $request, Note $note)
     {
-        //
+        $note->update($request->all());
+        $note->save();
+        return redirect()->route('note.show', compact('note'));
     }
 
     /**

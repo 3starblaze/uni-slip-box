@@ -1,5 +1,5 @@
 @extends('note.form')
-@section('action', route('notes'))
+@section('action', route('note.update', $note->id))
 @section('form-header')
     @method('put')
 @endsection
