@@ -72,7 +72,10 @@ class NoteController extends Controller
      */
     public function edit(Note $note)
     {
-        return view('note.edit', compact('note'));
+        if (\Auth::check() && \Auth::id() == $note->user_id) {
+            return view('note.edit', compact('note'));
+        }
+        return redirect()->route('home')->with('status', 'Not authorized to perform this action!');
     }
 
     /**
@@ -84,9 +87,12 @@ class NoteController extends Controller
      */
     public function update(Request $request, Note $note)
     {
-        $note->update($request->all());
-        $note->save();
-        return redirect()->route('note.show', compact('note'));
+        if (\Auth::check() && \Auth::id() == $note->user_id) {
+            $note->update($request->all());
+            $note->save();
+            return redirect()->route('note.show', compact('note'));
+        }
+        return redirect()->route('home');
     }
 
     /**
