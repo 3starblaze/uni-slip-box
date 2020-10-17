@@ -22,7 +22,8 @@ Auth::routes();
 
 Route::get('notes', [Controllers\NoteController::class, 'index'])
     ->name('note.index');
-Route::get('note/create', [Controllers\NoteController::class, 'create']);
+Route::get('note/create', [Controllers\NoteController::class, 'create'])
+    ->name('note.create');
 Route::post('notes', [Controllers\NoteController::class, 'store'])
     ->name('note.store');
 Route::put('note/{note}', [Controllers\NoteController::class, 'update'])
