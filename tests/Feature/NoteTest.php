@@ -9,6 +9,7 @@ use App\Models\{Note, User};
 
 class NoteTest extends TestCase
 {
+
     /**
      * A basic feature test example.
      *
@@ -80,5 +81,41 @@ class NoteTest extends TestCase
         $this->actingAs($user)
              ->get(route('note.edit', $note))
              ->assertRedirect(route('home'));
+    }
+
+    public function testForbidGuestUpdate()
+    {
+        $note = Note::factory()->create();
+        $this->put(route('note.update', $note), [
+            'title' => 'New title',
+            'body' => 'New body'
+        ]);
+        $this->assertNotSame($note->fresh()->title, 'New title');
+        $this->assertNotSame($note->fresh()->body, 'New body');
+    }
+
+    public function testAllowAuthorizedUpdate()
+    {
+        $note = Note::factory()->create();
+        $this->actingAs($note->user)
+             ->put(route('note.update', $note), [
+            'title' => 'New title',
+            'body' => 'New body'
+        ]);
+        $this->assertSame($note->fresh()->title, 'New title');
+        $this->assertSame($note->fresh()->body, 'New body');
+    }
+
+    public function testForbidUnauthorizedUpdate()
+    {
+        $note = Note::factory()->create();
+        $user = User::factory()->create();
+        $this->actingAs($user)
+             ->put(route('note.update', $note), [
+            'title' => 'New title',
+            'body' => 'New body'
+        ]);
+        $this->assertNotSame($note->fresh()->title, 'New title');
+        $this->assertNotSame($note->fresh()->body, 'New body');
     }
 }
