@@ -4,11 +4,29 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Testing\TestResponse;
 use Tests\TestCase;
 use App\Models\{Note, User};
 
 class NoteTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $test = $this;
+
+        TestResponse::macro('followRedirects', function ($testCase = null) use ($test) {
+            $response = $this;
+            $testCase = $testCase ?: $test;
+
+            while ($response->isRedirect()) {
+                $response = $testCase->get($response->headers->get('Location'));
+            }
+
+            return $response;
+        });
+    }
 
     /**
      * A basic feature test example.
@@ -29,10 +47,9 @@ class NoteTest extends TestCase
     public function testRedirectUnauthorizedFromShowingCreate()
     {
         $this->get(route('note.create'))
-             ->assertRedirect(route('home'));
-        $this->followingRedirects()
-            ->get(route('note.create'))
-            ->assertSee('must be logged in');
+             ->assertRedirect(route('home'))
+             ->followRedirects()
+             ->assertSee('must be logged in');
     }
 
     /**
@@ -56,9 +73,8 @@ class NoteTest extends TestCase
     {
         $note = Note::factory()->create();
         $this->get(route('note.edit', $note))
-             ->assertRedirect(route('home'));
-        $this->followingRedirects()
-             ->get(route('note.edit', $note))
+             ->assertRedirect(route('home'))
+             ->followRedirects()
              ->assertSee('Not authorized');
     }
 
@@ -86,10 +102,8 @@ class NoteTest extends TestCase
         $note = Note::factory()->create();
         $this->actingAs($user)
              ->get(route('note.edit', $note))
-             ->assertRedirect(route('home'));
-        $this->followingRedirects()
-             ->actingAs($user)
-             ->get(route('note.edit', $note))
+             ->assertRedirect(route('home'))
+             ->followRedirects()
              ->assertSee('Not authorized');
     }
 
