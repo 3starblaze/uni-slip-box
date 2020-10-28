@@ -28,8 +28,11 @@ class NoteTest extends TestCase
      */
     public function testRedirectUnauthorizedFromShowingCreate()
     {
-        $res = $this->get(route('note.create'));
-        $res->assertRedirect(route('home'));
+        $this->get(route('note.create'))
+             ->assertRedirect(route('home'));
+        $this->followingRedirects()
+            ->get(route('note.create'))
+            ->assertSee('must be logged in');
     }
 
     /**
@@ -54,6 +57,9 @@ class NoteTest extends TestCase
         $note = Note::factory()->create();
         $this->get(route('note.edit', $note))
              ->assertRedirect(route('home'));
+        $this->followingRedirects()
+             ->get(route('note.edit', $note))
+             ->assertSee('Not authorized');
     }
 
     /**
@@ -81,6 +87,10 @@ class NoteTest extends TestCase
         $this->actingAs($user)
              ->get(route('note.edit', $note))
              ->assertRedirect(route('home'));
+        $this->followingRedirects()
+             ->actingAs($user)
+             ->get(route('note.edit', $note))
+             ->assertSee('Not authorized');
     }
 
     public function testForbidGuestUpdate()
